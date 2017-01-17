@@ -2,27 +2,27 @@ package game;
 
 public class Stone {
 
-	private StoneENUM color;
+	private StoneColor color;
 	private int liberty;
 	private Stone[] surrounding;
 	
 	public Stone(boolean white) {
 		if (white) {
-			this.color = StoneENUM.WHITE;
+			this.color = StoneColor.WHITE;
 		} else {
-			this.color = StoneENUM.BLACK;
+			this.color = StoneColor.BLACK;
 		}
 	}
 	
 	public Stone() {
-		this.color = StoneENUM.EMPTY;
+		this.color = StoneColor.EMPTY;
 	}
 	
 	public void setColor(boolean white) {
 		if (white) {
-			this.color = StoneENUM.WHITE;
+			this.color = StoneColor.WHITE;
 		} else {
-			this.color = StoneENUM.BLACK;
+			this.color = StoneColor.BLACK;
 		}
 	}
 	
@@ -39,7 +39,6 @@ public class Stone {
 		}
 		*/
 		}
-		//return liberty == 0;
 	}
 	
 	/**
@@ -47,13 +46,13 @@ public class Stone {
 	 * @return
 	 */
 	public boolean isEmpty() {
-		return (color == StoneENUM.EMPTY);
+		return (color == StoneColor.EMPTY);
 	}
 	
 	public boolean noLiberty() {
 		/*
 		for (int i = 0; i < surrounding.length; i++) {
-			if (surrounding[i].getColor() == StoneENUM.EMPTY) {
+			if (surrounding[i].getColor() == StoneColor.EMPTY) {
 				return false;
 			}
 		}
@@ -66,7 +65,7 @@ public class Stone {
 		this.liberty = liberty;
 	}
 	
-	public StoneENUM getColor() {
+	public StoneColor getColor() {
 		return color;
 	}
 	
@@ -75,7 +74,7 @@ public class Stone {
 	 * @return
 	 */
 	public boolean getBooleanColor() {
-		if (color == StoneENUM.WHITE) {
+		if (color == StoneColor.WHITE) {
 			return true;
 		} else {
 			return false;
@@ -83,12 +82,6 @@ public class Stone {
 	}
 	
 	public String toString() {
-		//String color;
-		//if (this.color) {
-		//	color = "white";
-		//} else {
-		//	color = "black";
-		//}
 		return "This stone is of color " + color + " and has " + liberty + " liberties.";
 	}
 }
