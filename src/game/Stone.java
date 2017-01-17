@@ -2,85 +2,93 @@ package game;
 
 public class Stone {
 
-	private boolean color;
+	private StoneENUM color;
 	private int liberty;
 	private Stone[] surrounding;
 	
 	public Stone(boolean white) {
-		this.color = white;
-		this.surrounding = new Stone[4];
-	}
-	
-	public void decreaseDegree() {
-		if (liberty > 0) {
-			liberty--;
+		if (white) {
+			this.color = StoneENUM.WHITE;
 		} else {
-			System.out.println("Degrees of freedom could not be decrease: stone already has 0 degrees of freedom.");
+			this.color = StoneENUM.BLACK;
 		}
 	}
 	
-	public boolean noLiberty() {
-		return liberty == 0;
+	public Stone() {
+		this.color = StoneENUM.EMPTY;
 	}
 	
-	public boolean getColor() {
-		return color;
+	public void setColor(boolean white) {
+		if (white) {
+			this.color = StoneENUM.WHITE;
+		} else {
+			this.color = StoneENUM.BLACK;
+		}
+	}
+	
+	public void decreaseLibertyByOne() {
+		if (liberty > 0) {
+			liberty--;
+		} else {
+		/*
+		for (int i = 0; i < surrounding.length; i++) {
+			boolean colorSurrounding = su
+			if (otherColor(surrounding[i].getColor())) {
+				
+			}
+		}
+		*/
+		}
+		//return liberty == 0;
+	}
+	
+	/**
+	 * @pure
+	 * @return
+	 */
+	public boolean isEmpty() {
+		return (color == StoneENUM.EMPTY);
+	}
+	
+	public boolean noLiberty() {
+		/*
+		for (int i = 0; i < surrounding.length; i++) {
+			if (surrounding[i].getColor() == StoneENUM.EMPTY) {
+				return false;
+			}
+		}
+		return true;
+		*/
+		return liberty == 0;
 	}
 	
 	public void setLiberty(int liberty) {
 		this.liberty = liberty;
 	}
 	
-	public String toString() {
-		String color;
-		if (this.color) {
-			color = "white";
-		} else {
-			color = "black";
-		}
-		return "This stone is of color " + color + " and has " + liberty + " degrees of freedom.";
+	public StoneENUM getColor() {
+		return color;
 	}
-}
-
-/**
- * Represents a mark in the Tic Tac Toe game. There three possible values:
- * Mark.XX, Mark.OO and Mark.EMPTY.
- * Module 2 lab assignment
- * 
- * @author Theo Ruys
- * @version $Revision: 1.4 $
- */
-public enum Mark {
-    
-    EMPTY, XX, OO;
-
-    /*@
-       ensures this == Mark.XX ==> \result == Mark.OO;
-       ensures this == Mark.OO ==> \result == Mark.XX;
-       ensures this == Mark.EMPTY ==> \result == Mark.EMPTY;
-     */
-    /**
-     * Returns the other mark.
-     * 
-     * @return the other mark is this mark is not EMPTY or EMPTY
-     */
-    public Mark other() {
-        if (this == XX) {
-            return OO;
-        } else if (this == OO) {
-            return XX;
-        } else {
-            return EMPTY;
-        }
-    }
-    
-    public String toString() {
-    	String result = " ";
-    	if (this == XX) {
-    		result = "X";
-    	} else if (this == OO) {
-    		result = "O";
-    	}
-    	return result;
-    }
+	
+	/**
+	 * @requires !isEmpty()
+	 * @return
+	 */
+	public boolean getBooleanColor() {
+		if (color == StoneENUM.WHITE) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public String toString() {
+		//String color;
+		//if (this.color) {
+		//	color = "white";
+		//} else {
+		//	color = "black";
+		//}
+		return "This stone is of color " + color + " and has " + liberty + " liberties.";
+	}
 }
