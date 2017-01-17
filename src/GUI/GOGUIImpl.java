@@ -1,4 +1,4 @@
-package com.nedap.go.gui;
+package GUI;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;

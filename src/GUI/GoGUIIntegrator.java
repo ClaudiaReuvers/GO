@@ -1,4 +1,4 @@
-package com.nedap.go.gui;
+package GUI;
 
 import javafx.application.Platform;
 

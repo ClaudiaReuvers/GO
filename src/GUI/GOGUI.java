@@ -1,4 +1,4 @@
-package com.nedap.go.gui;
+package GUI;
 
 /**
  * Created by daan.vanbeek on 13-12-16.

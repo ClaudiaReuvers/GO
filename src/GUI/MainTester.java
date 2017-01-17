@@ -1,4 +1,4 @@
-package com.nedap.go.gui;
+package GUI;
 
 /**
  * Example on how to use the GOGUI
