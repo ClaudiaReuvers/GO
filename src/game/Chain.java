@@ -36,4 +36,15 @@ public class Chain {
 		}
 		return liberty;
 	}
+	
+	@Override
+	public String toString() {
+		String msg = "";
+		int count = 0;
+		for (Stone stone: chain) {
+			count++;
+			msg += "Stone " + count +": (" + stone.getX() + "," + stone.getY() + ")/n";
+		}
+		return msg;
+	}
 }
