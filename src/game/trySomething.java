@@ -63,6 +63,11 @@ public class trySomething {
 				above.decreaseLibertyByOne();
 				if (above.getColor() == stone.getColor()) {
 					addToChain(above, stone);
+				} else {
+					Chain chainAbove = above.getChain();
+					if (chainAbove.getLibertyChain() == 0) {
+						removeStones(chainAbove);
+					}
 				}
 			}
 		}
@@ -74,6 +79,11 @@ public class trySomething {
 				below.decreaseLibertyByOne();
 				if (below.getColor() == stone.getColor()) {
 					addToChain(below, stone);
+				} else {
+					Chain chainBelow = below.getChain();
+					if (chainBelow.getLibertyChain() == 0) {
+						removeStones(chainBelow);
+					}
 				}
 			}
 		}
@@ -85,6 +95,11 @@ public class trySomething {
 				left.decreaseLibertyByOne();
 				if (left.getColor() == stone.getColor()) {
 					addToChain(left, stone);
+				} else {
+					Chain chainLeft = left.getChain();
+					if (chainLeft.getLibertyChain() == 0) {
+						removeStones(chainLeft);
+					}
 				}
 			}
 		}
@@ -96,6 +111,11 @@ public class trySomething {
 				right.decreaseLibertyByOne();
 				if (right.getColor() == stone.getColor()) {
 					addToChain(right, stone);
+				} else {
+					Chain chainRight = right.getChain();
+					if (chainRight.getLibertyChain() == 0) {
+						removeStones(chainRight);
+					}
 				}
 			}
 		}
@@ -147,6 +167,15 @@ public class trySomething {
 		return (y == dim -1);
 	}
 	
+	public void clearBoard() {
+		for (int x = 0; x < dim; x++) {
+    		for (int y = 0; y < dim; y++) {
+    			fields[coordinatesToIndex(x, y)] = new Stone(x, y);
+    		}
+    	}
+    	GUI.clearBoard();
+	}
+	
 	public static void main(String args[]) {
 		trySomething board = new trySomething(5);
 		board.addStone(0, 0, true);
@@ -155,21 +184,23 @@ public class trySomething {
 		board.addStone(0, 1, true);
 		board.addStone(1, 0, false);
 		board.addStone(1, 1, false);
-		board.addStone(1, 2, false);
+		//board.addStone(1, 2, false);
 		board.addStone(0, 2, false);
 		System.out.println(board.getField(0, 0));
 		System.out.println(board.getField(0, 1));
 		System.out.println(board.getField(0, 0).getChain());
 		System.out.println(board.getField(0, 1).getChain());
-		System.out.println(board.getField(0, 0).getChain().getLibertyChain());
+		//System.out.println(board.getField(0, 0).getChain().getLibertyChain());
 		Chain chain1 = board.getField(1, 0).getChain();
 		System.out.println("Chain: " + chain1 + " liberties: " + chain1.getLibertyChain());
 		Chain chain2 = board.getField(1, 1).getChain();
+		System.out.println(board.getField(1, 1).hasChain());
 		System.out.println("Chain: " + chain2 + " liberties: " + chain2.getLibertyChain());
 		Chain chain3 = board.getField(0, 2).getChain();
+		System.out.println(board.getField(0, 2).hasChain());
 		System.out.println("Chain: " + chain3 + " liberties: " + chain3.getLibertyChain());
-		Chain chain4 = board.getField(1, 2).getChain();
-		System.out.println("Chain: " + chain4 + " liberties: " + chain4.getLibertyChain());
+		//Chain chain4 = board.getField(1, 2).getChain();
+		//System.out.println("Chain: " + chain4 + " liberties: " + chain4.getLibertyChain());
 
 	}
 }
