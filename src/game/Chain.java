@@ -43,7 +43,7 @@ public class Chain {
 		int count = 0;
 		for (Stone stone: chain) {
 			count++;
-			msg += "Stone " + count +": (" + stone.getX() + "," + stone.getY() + ")/n";
+			msg += "Stone " + count +": " + stone.toString() + ")/n";
 		}
 		return msg;
 	}

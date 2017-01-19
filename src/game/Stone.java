@@ -4,6 +4,9 @@ public class Stone {
 
 	private StoneColor color;
 	private int liberty;
+	private Chain chain;
+	private int x;
+	private int y;
 	//private Stone[] surrounding;
 	
 	/**
@@ -22,8 +25,11 @@ public class Stone {
 	/**
 	 * Creates an empty <code>Stone</code>.
 	 */
-	public Stone() {
+	public Stone(int x, int y) {
 		this.color = StoneColor.EMPTY;
+		this.x = x;
+		this.y = y;
+		this.chain = null;
 	}
 	
 	/**
@@ -39,6 +45,10 @@ public class Stone {
 		}
 	}
 	
+	public void setEmpty() {
+		this.color = StoneColor.EMPTY;
+		this.chain = null;
+	}
 	/**
 	 * Decreases the <tt>liberty</tt> of this <code>Stone</code> with one.
 	 * @requires getLiberty() > 0
@@ -92,6 +102,18 @@ public class Stone {
 		this.liberty = liberty;
 	}
 	
+	public void addChain(Chain chain) {
+		this.chain = chain;
+	}
+	
+	public boolean hasChain() {
+		return (chain != null);
+	}
+	
+	public Chain getChain() {
+		return chain;
+	}
+	
 	/**
 	 * Returns the number of liberties of the <code>Stone</code>.
 	 * @return the number of liberties of the <code>Stone</code>
@@ -120,6 +142,14 @@ public class Stone {
 		} else {
 			return false;
 		}
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
 	}
 	
 	public String toString() {
