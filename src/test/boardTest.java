@@ -11,22 +11,28 @@ import static org.junit.Assert.assertTrue;
 
 public class boardTest {
 	
-	private trySomething board9;
+	private secondBoard board9;
 
 	@Before
     public void setUp() {
-    	board9 = new trySomething(9);
+    	board9 = new secondBoard(9);
     }
 	
     @Test
     public void testSetUp() {
-    	trySomething board13 = new trySomething(13);
-    	assertEquals(9, board9.getBoardSize());
-    	assertEquals(13, board13.getBoardSize());
+    	secondBoard board13 = new secondBoard(13);
+    	assertEquals(9, board9.getDimension());
+    	assertEquals(13, board13.getDimension());
     	assertEquals(StoneColor.EMPTY, board9.getField(0, 0).getColor());
     	assertEquals(StoneColor.EMPTY, board9.getField(8, 8).getColor());
     	assertEquals(StoneColor.EMPTY, board13.getField(0, 0).getColor());
     	assertEquals(StoneColor.EMPTY, board13.getField(12, 12).getColor());
+    	assertEquals(2, board9.getField(0, 0).getNeighbours().size());
+    	assertEquals(3, board9.getField(0, 1).getNeighbours().size());
+    	assertEquals(4, board9.getField(6, 6).getNeighbours().size());
+    	assertEquals(StoneColor.EMPTY, board9.getField(0, 0).getNeighbours().get(0).getColor());
+    	assertEquals(StoneColor.EMPTY, board9.getField(0, 0).getNeighbours().get(1).getColor());
+//    	assertEquals(4, )
     }
     
     @Test
@@ -34,46 +40,48 @@ public class boardTest {
     	board9.addStone(1, 1, true);
     	assertFalse(board9.getField(1, 1).isEmpty());
     	assertEquals(StoneColor.WHITE, board9.getField(1, 1).getColor());
-    	assertEquals(board9.getField(1, 1).getLiberty(), 4);
-    	assertEquals(board9.getField(1, 1).getChain().getLength(), 1);
+    	assertEquals(4, board9.getField(1, 1).liberty());
+    	assertEquals(1, board9.getField(1, 1).getChain().getLength());
     	board9.addStone(8, 7, false);
-    	assertEquals(board9.getField(8, 7).getColor(), StoneColor.BLACK);
-    	assertEquals(board9.getField(8, 7).getLiberty(), 3);
-    	assertEquals(board9.getField(8, 7).getChain().getLength(), 1);
+    	assertEquals(StoneColor.BLACK, board9.getField(8, 7).getColor());
+    	assertEquals(3, board9.getField(8, 7).liberty());
+    	assertEquals(1, board9.getField(8, 7).getChain().getLength());
     	board9.addStone(0, 0, true);
-    	assertEquals(board9.getField(0, 0).getLiberty(), 2);
-    	assertEquals(board9.getField(0, 0).getChain().getLength(), 1);
+    	assertEquals(2, board9.getField(0, 0).liberty());
+    	assertEquals(1, board9.getField(0, 0).getChain().getLength());
     }
     
     @Test
     public void testTwoStonesOtherColor() {
     	board9.addStone(1, 1, true);
     	board9.addStone(1, 2, false);
-    	assertEquals(board9.getField(1, 1).getLiberty(), 3);
-    	assertEquals(board9.getField(1, 2).getLiberty(), 3);
-    	assertEquals(board9.getField(1, 1).getChain().getLength(), 1);
-    	assertEquals(board9.getField(1, 2).getChain().getLength(), 1);
+    	assertEquals(3, board9.getField(1, 1).liberty());
+    	assertEquals(3, board9.getField(1, 2).liberty());
+    	assertEquals(1, board9.getField(1, 1).getChain().getLength());
+    	assertEquals(1, board9.getField(1, 2).getChain().getLength());
     	board9.addStone(1, 0, false);
-    	assertEquals(board9.getField(1, 0).getLiberty(), 2);
-    	assertEquals(board9.getField(1, 1).getLiberty(), 2);
+    	assertEquals(2, board9.getField(1, 0).liberty());
+    	assertEquals(2, board9.getField(1, 1).liberty());
     	board9.addStone(0, 0, true);
-    	assertEquals(board9.getField(0, 0).getLiberty(), 1);
-    	assertEquals(board9.getField(1, 0).getLiberty(), 1);
+    	assertEquals(1, board9.getField(0, 0).liberty());
+    	assertEquals(1, board9.getField(1, 0).liberty());
     }
     
     @Test
     public void testTwoStonesSameColor() {
     	board9.addStone(1, 1, true);
     	board9.addStone(1, 2, true);
-    	assertEquals(board9.getField(1, 1).getLiberty(), 6);
-    	assertEquals(board9.getField(1, 2).getLiberty(), 6);
-    	assertEquals(board9.getField(1, 1).getChain().getLength(), 2);
-    	assertEquals(board9.getField(1, 2).getChain().getLength(), 2);
+    	assertEquals(2, board9.getField(1, 1).getChain().getLength());
+    	assertEquals(2, board9.getField(1, 2).getChain().getLength());
+    	assertEquals(6, board9.getField(1, 1).getChain().getAdjacentStones().size());
+    	assertEquals(6, board9.getField(1, 2).getChain().getAdjacentStones().size());
+    	assertEquals(6, board9.getField(1, 1).liberty());
+    	assertEquals(6, board9.getField(1, 2).liberty());
     	board9.addStone(2, 2, false);
-    	assertEquals(board9.getField(1, 1).getLiberty(), 5);
-    	assertEquals(board9.getField(1, 2).getLiberty(), 5);
-    	assertEquals(board9.getField(1, 1).getChain().getLength(), 2);
-    	assertEquals(board9.getField(1, 2).getChain().getLength(), 2);
+    	assertEquals(5, board9.getField(1, 1).liberty());
+    	assertEquals(5, board9.getField(1, 2).liberty());
+    	assertEquals(2, board9.getField(1, 1).getChain().getLength());
+    	assertEquals(2, board9.getField(1, 2).getChain().getLength());
     }
     
     @Test
@@ -81,12 +89,12 @@ public class boardTest {
     	board9.addStone(1, 1, true);
     	board9.addStone(1, 2, true);
     	board9.addStone(1, 3, true);
-    	assertEquals(board9.getField(1, 1).getLiberty(), 8);
-    	assertEquals(board9.getField(1, 2).getLiberty(), 8);
-    	assertEquals(board9.getField(1, 3).getLiberty(), 8);
-    	assertEquals(board9.getField(1, 1).getChain().getLength(), 3);
-    	assertEquals(board9.getField(1, 2).getChain().getLength(), 3);
-    	assertEquals(board9.getField(1, 3).getChain().getLength(), 3);
+    	assertEquals(8, board9.getField(1, 1).liberty());
+    	assertEquals(8, board9.getField(1, 2).liberty());
+    	assertEquals(8, board9.getField(1, 3).liberty());
+    	assertEquals(3, board9.getField(1, 1).getChain().getLength());
+    	assertEquals(3, board9.getField(1, 2).getChain().getLength());
+    	assertEquals(3, board9.getField(1, 3).getChain().getLength());
     }
     
     @Test
@@ -94,12 +102,12 @@ public class boardTest {
     	board9.addStone(1, 1, true);
     	board9.addStone(1, 2, true);
     	board9.addStone(2, 2, true);
-    	assertEquals(board9.getField(1, 1).getLiberty(), 7);
-    	assertEquals(board9.getField(1, 2).getLiberty(), 7);
-    	assertEquals(board9.getField(2, 2).getLiberty(), 7);
-    	assertEquals(board9.getField(1, 1).getChain().getLength(), 3);
-    	assertEquals(board9.getField(1, 2).getChain().getLength(), 3);
-    	assertEquals(board9.getField(2, 2).getChain().getLength(), 3);
+    	assertEquals(7, board9.getField(1, 1).liberty());
+    	assertEquals(7, board9.getField(1, 2).liberty());
+    	assertEquals(7, board9.getField(2, 2).liberty());
+    	assertEquals(3, board9.getField(1, 1).getChain().getLength());
+    	assertEquals(3, board9.getField(1, 2).getChain().getLength());
+    	assertEquals(3, board9.getField(2, 2).getChain().getLength());
     }
     
     @Test
@@ -108,14 +116,14 @@ public class boardTest {
     	board9.addStone(1, 2, true);
     	board9.addStone(2, 2, true);
     	board9.addStone(2, 1, true);
-    	assertEquals(board9.getField(1, 1).getLiberty(), 8);
-    	assertEquals(board9.getField(1, 2).getLiberty(), 8);
-    	assertEquals(board9.getField(2, 2).getLiberty(), 8);
-    	assertEquals(board9.getField(2, 1).getLiberty(), 8);
-    	assertEquals(board9.getField(1, 1).getChain().getLength(), 4);
-    	assertEquals(board9.getField(1, 2).getChain().getLength(), 4);
-    	assertEquals(board9.getField(2, 2).getChain().getLength(), 4);
-    	assertEquals(board9.getField(2, 1).getChain().getLength(), 4);
+    	assertEquals(8, board9.getField(1, 1).liberty());
+    	assertEquals(8, board9.getField(1, 2).liberty());
+    	assertEquals(8, board9.getField(2, 2).liberty());
+    	assertEquals(8, board9.getField(2, 1).liberty());
+    	assertEquals(4, board9.getField(1, 1).getChain().getLength());
+    	assertEquals(4, board9.getField(1, 2).getChain().getLength());
+    	assertEquals(4, board9.getField(2, 2).getChain().getLength());
+    	assertEquals(4, board9.getField(2, 1).getChain().getLength());
     }
     
     @Test
@@ -125,16 +133,16 @@ public class boardTest {
     	board9.addStone(1, 3, true);
     	board9.addStone(1, 4, true);
     	board9.addStone(1, 2, true);
-    	assertEquals(board9.getField(1, 0).getLiberty(), 11);
-    	assertEquals(board9.getField(1, 1).getLiberty(), 11);
-    	assertEquals(board9.getField(1, 3).getLiberty(), 11);
-    	assertEquals(board9.getField(1, 4).getLiberty(), 11);
-    	assertEquals(board9.getField(1, 2).getLiberty(), 11);
-    	assertEquals(board9.getField(1, 0).getChain().getLength(), 5);
-    	assertEquals(board9.getField(1, 1).getChain().getLength(), 5);
-    	assertEquals(board9.getField(1, 3).getChain().getLength(), 5);
-    	assertEquals(board9.getField(1, 4).getChain().getLength(), 5);
-    	assertEquals(board9.getField(1, 2).getChain().getLength(), 5);
+    	assertEquals(11, board9.getField(1, 0).liberty());
+    	assertEquals(11, board9.getField(1, 1).liberty());
+    	assertEquals(11, board9.getField(1, 3).liberty());
+    	assertEquals(11, board9.getField(1, 4).liberty());
+    	assertEquals(11, board9.getField(1, 2).liberty());
+    	assertEquals(5, board9.getField(1, 0).getChain().getLength());
+    	assertEquals(5, board9.getField(1, 1).getChain().getLength());
+    	assertEquals(5, board9.getField(1, 3).getChain().getLength());
+    	assertEquals(5, board9.getField(1, 4).getChain().getLength());
+    	assertEquals(5, board9.getField(1, 2).getChain().getLength());
     }
     
     @Test
@@ -146,20 +154,20 @@ public class boardTest {
     	board9.addStone(2, 4, true);
     	board9.addStone(3, 4, true);
     	board9.addStone(2, 2, true);
-    	assertEquals(board9.getField(1, 0).getLiberty(), 11);
-    	assertEquals(board9.getField(1, 1).getLiberty(), 11);
-    	assertEquals(board9.getField(2, 1).getLiberty(), 11);
-    	assertEquals(board9.getField(2, 3).getLiberty(), 11);
-    	assertEquals(board9.getField(2, 4).getLiberty(), 11);
-    	assertEquals(board9.getField(3, 4).getLiberty(), 11);
-    	assertEquals(board9.getField(2, 2).getLiberty(), 11);
-    	assertEquals(board9.getField(1, 0).getChain().getLength(), 7);
-    	assertEquals(board9.getField(1, 1).getChain().getLength(), 7);
-    	assertEquals(board9.getField(2, 1).getChain().getLength(), 7);
-    	assertEquals(board9.getField(2, 3).getChain().getLength(), 7);
-    	assertEquals(board9.getField(2, 4).getChain().getLength(), 7);
-    	assertEquals(board9.getField(3, 4).getChain().getLength(), 7);
-    	assertEquals(board9.getField(2, 2).getChain().getLength(), 7);
+    	assertEquals(11, board9.getField(1, 0).liberty());
+    	assertEquals(11, board9.getField(1, 1).liberty());
+    	assertEquals(11, board9.getField(2, 1).liberty());
+    	assertEquals(11, board9.getField(2, 3).liberty());
+    	assertEquals(11, board9.getField(2, 4).liberty());
+    	assertEquals(11, board9.getField(3, 4).liberty());
+    	assertEquals(11, board9.getField(2, 2).liberty());
+    	assertEquals(7, board9.getField(1, 0).getChain().getLength());
+    	assertEquals(7, board9.getField(1, 1).getChain().getLength());
+    	assertEquals(7, board9.getField(2, 1).getChain().getLength());
+    	assertEquals(7, board9.getField(2, 3).getChain().getLength());
+    	assertEquals(7, board9.getField(2, 4).getChain().getLength());
+    	assertEquals(7, board9.getField(3, 4).getChain().getLength());
+    	assertEquals(7, board9.getField(2, 2).getChain().getLength());
     }
     
     @Test
@@ -170,18 +178,18 @@ public class boardTest {
     	board9.addStone(2, 3, true);
     	board9.addStone(3, 3, true);
     	board9.addStone(2, 2, true);
-    	assertEquals(board9.getField(1, 0).getLiberty(), 10);
-    	assertEquals(board9.getField(1, 1).getLiberty(), 10);
-    	assertEquals(board9.getField(2, 1).getLiberty(), 10);
-    	assertEquals(board9.getField(2, 3).getLiberty(), 10);
-    	assertEquals(board9.getField(3, 3).getLiberty(), 10);
-    	assertEquals(board9.getField(2, 2).getLiberty(), 10);
-    	assertEquals(board9.getField(1, 0).getChain().getLength(), 6);
-    	assertEquals(board9.getField(1, 1).getChain().getLength(), 6);
-    	assertEquals(board9.getField(2, 1).getChain().getLength(), 6);
-    	assertEquals(board9.getField(2, 3).getChain().getLength(), 6);
-    	assertEquals(board9.getField(3, 3).getChain().getLength(), 6);
-    	assertEquals(board9.getField(2, 2).getChain().getLength(), 6);
+    	assertEquals(10, board9.getField(1, 0).liberty());
+    	assertEquals(10, board9.getField(1, 1).liberty());
+    	assertEquals(10, board9.getField(2, 1).liberty());
+    	assertEquals(10, board9.getField(2, 3).liberty());
+    	assertEquals(10, board9.getField(3, 3).liberty());
+    	assertEquals(10, board9.getField(2, 2).liberty());
+    	assertEquals(6, board9.getField(1, 0).getChain().getLength());
+    	assertEquals(6, board9.getField(1, 1).getChain().getLength());
+    	assertEquals(6, board9.getField(2, 1).getChain().getLength());
+    	assertEquals(6, board9.getField(2, 3).getChain().getLength());
+    	assertEquals(6, board9.getField(3, 3).getChain().getLength());
+    	assertEquals(6, board9.getField(2, 2).getChain().getLength());
     }
     
     @Test
@@ -214,6 +222,7 @@ public class boardTest {
     	assertTrue(board9.getField(1, 1).isEmpty());
     }
     
+    //TODO: broaden testSetUp() for neighbours
     //TODO: add test for removal of chains
     //TODO: add test for order of removal
     
