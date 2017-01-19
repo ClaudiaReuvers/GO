@@ -131,6 +131,7 @@ public class trySomething {
 			removeStones(stone.getChain());
 		}
 		//TODO: add removal of notCurrentChain
+		//TODO: make getLiberty() more dynamic
 	}
 	
 	private void addToChain(Stone stoneOld, Stone stoneNew) {

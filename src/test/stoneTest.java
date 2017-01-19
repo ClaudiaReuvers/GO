@@ -15,7 +15,7 @@ public class stoneTest {
 	
 	@Before
 	public void setUp() {
-		stone = new Stone();
+		stone = new Stone(1, 1);
 	}
 	
 	@Test

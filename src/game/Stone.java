@@ -4,7 +4,22 @@ public class Stone {
 
 	private StoneColor color;
 	private int liberty;
+	private Chain chain;
+	private int x;
+	private int y;
+	
 	//private Stone[] surrounding;
+	
+	/**
+	 * Creates an empty <code>Stone</code>.
+	 */
+	public Stone(int x, int y) {
+		this.x = x;
+		this.y = y;
+		this.color = StoneColor.EMPTY;
+		this.liberty = -1;
+		chain = null;
+	}
 	
 	/**
 	 * Creates a <code>Stone</code> with a given color.
@@ -20,13 +35,6 @@ public class Stone {
 	}
 	
 	/**
-	 * Creates an empty <code>Stone</code>.
-	 */
-	public Stone() {
-		this.color = StoneColor.EMPTY;
-	}
-	
-	/**
 	 * Set the color of the <code>Stone</code>.
 	 * @param white <tt>true</tt> if the color is <tt>WHITE</tt>,
 	 * <tt>false</tt> if the color is <tt>BLACK</tt>
@@ -37,6 +45,20 @@ public class Stone {
 		} else {
 			this.color = StoneColor.BLACK;
 		}
+	}
+	
+	public void setEmpty() {
+		this.color = StoneColor.EMPTY;
+		this.liberty = -1;
+		chain = null;
+	}
+	
+	/**
+	 * Sets the number of liberties of the <code>Stone</code>.
+	 * @param liberty number of liberties the <code>Stone</code> has
+	 */
+	public void setLiberty(int liberty) {
+		this.liberty = liberty;
 	}
 	
 	/**
@@ -58,6 +80,14 @@ public class Stone {
 		*/
 		}
 	}
+
+	public void addChain(Chain chain) {
+		this.chain = chain;
+	}
+	
+	public boolean hasChain() {
+		return (chain!=null);
+	}
 	
 	/**
 	 * Returns if the <code>Stone</code> is empty.
@@ -72,7 +102,7 @@ public class Stone {
 	 * Returns if the <tt>liberty</tt> of this <code>Stone</code> is zero.
 	 * @return <tt>true</tt> if getLiberty() == 0
 	 */
-	public boolean noLiberty() {
+	public boolean hasNoLiberty() {
 		/*
 		for (int i = 0; i < surrounding.length; i++) {
 			if (surrounding[i].getColor() == StoneColor.EMPTY) {
@@ -82,14 +112,6 @@ public class Stone {
 		return true;
 		*/
 		return (this.liberty == 0);
-	}
-	
-	/**
-	 * Sets the number of liberties of the <code>Stone</code>.
-	 * @param liberty number of liberties the <code>Stone</code> has
-	 */
-	public void setLiberty(int liberty) {
-		this.liberty = liberty;
 	}
 	
 	/**
@@ -122,7 +144,23 @@ public class Stone {
 		}
 	}
 	
+	public Chain getChain() {
+		return chain;
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
 	public String toString() {
-		return "This stone is of color " + color + " and has " + liberty + " liberties.";
+		String msg = "";
+		msg += "The stone is placed on (" + x + "," + y;
+		msg += "), has " + liberty + " liberties and is " + color + ".";
+		return msg;
+//		return "This stone is of color " + color + " and has " + liberty + " liberties.";
 	}
 }
