@@ -1,158 +1,92 @@
 package game;
 
+import java.util.ArrayList;
+
 public class Stone {
 
-	private StoneColor color;
-	private int liberty;
+	private StoneState color;
 	private Chain chain;
-	private int x;
-	private int y;
-	//private Stone[] surrounding;
+	private ArrayList<Stone> neighbour;
+	private int max = 4;
 	
-	/**
-	 * Creates a <code>Stone</code> with a given color.
-	 * @param white <tt>true</tt> if the color is <tt>WHITE</tt>
-	 * <tt>false</tt> if the color is <tt>BLACK</tt>
-	 */
-	public Stone(boolean white) {
-		if (white) {
-			this.color = StoneColor.WHITE;
-		} else {
-			this.color = StoneColor.BLACK;
-		}
-	}
-	
-	/**
-	 * Creates an empty <code>Stone</code>.
-	 */
-	public Stone(int x, int y) {
-		this.color = StoneColor.EMPTY;
-		this.x = x;
-		this.y = y;
-		this.chain = null;
-	}
-	
-	/**
-	 * Set the color of the <code>Stone</code>.
-	 * @param white <tt>true</tt> if the color is <tt>WHITE</tt>,
-	 * <tt>false</tt> if the color is <tt>BLACK</tt>
-	 */
-	public void setColor(boolean white) {
-		if (white) {
-			this.color = StoneColor.WHITE;
-		} else {
-			this.color = StoneColor.BLACK;
-		}
+	//Constructor
+	public Stone() {
+		this.color = StoneState.EMPTY;
+		this.chain = new Chain();
+		this.neighbour = new ArrayList<>();
 	}
 	
 	public void setEmpty() {
-		this.color = StoneColor.EMPTY;
-		this.chain = null;
-	}
-	/**
-	 * Decreases the <tt>liberty</tt> of this <code>Stone</code> with one.
-	 * @requires getLiberty() > 0
-	 * @ensures getLiberty() == old(getLiberty()) - 1
-	 */
-	public void decreaseLibertyByOne() {
-		if (liberty > 0) {
-			liberty--;
-		} else {
-		/*
-		for (int i = 0; i < surrounding.length; i++) {
-			boolean colorSurrounding = su
-			if (otherColor(surrounding[i].getColor())) {
-				
-			}
-		}
-		*/
-		}
+		this.color = StoneState.EMPTY;
+		this.chain = new Chain();
+		addThisToChain();
 	}
 	
-	/**
-	 * Returns if the <code>Stone</code> is empty.
-	 * @pure
-	 * @return <tt>true</tt> if getColor() == StoneColor.EMPTY
-	 */
-	public boolean isEmpty() {
-		return (color == StoneColor.EMPTY);
-	}
-
-	/**
-	 * Returns if the <tt>liberty</tt> of this <code>Stone</code> is zero.
-	 * @return <tt>true</tt> if getLiberty() == 0
-	 */
-	public boolean noLiberty() {
-		/*
-		for (int i = 0; i < surrounding.length; i++) {
-			if (surrounding[i].getColor() == StoneColor.EMPTY) {
-				return false;
-			}
-		}
-		return true;
-		*/
-		return (this.liberty == 0);
-	}
-	
-	/**
-	 * Sets the number of liberties of the <code>Stone</code>.
-	 * @param liberty number of liberties the <code>Stone</code> has
-	 */
-	public void setLiberty(int liberty) {
-		this.liberty = liberty;
+	//Methods
+	public void addThisToChain() {
+		chain.addStone(this);
 	}
 	
 	public void addChain(Chain chain) {
 		this.chain = chain;
 	}
 	
-	public boolean hasChain() {
-		return (chain != null);
+	public void addNeighbour(Stone stone) {
+		if (neighbour.size() == max) {
+			System.out.println("Max nr. of neighbours is exceeded");
+		}
+		if (!neighbour.contains(stone)) {
+			neighbour.add(stone);
+		}
+	}
+	
+	public void remove() {
+		for (Stone stones : chain.getChain()) {
+			stones.setEmpty();
+		}
+	}
+	
+	public void setColor(boolean white) {
+		if (white) {
+			this.color = StoneState.WHITE;
+		} else {
+			this.color = StoneState.BLACK;
+		}
+	}
+	
+	public void join(Stone stone) {
+		chain.join(stone.getChain());
+		stone.addChain(chain);
+	}
+	
+	//Queries
+	public StoneState getState() {
+		return color;
+	}
+	
+	public StoneState otherColor() {
+		if (color == StoneState.WHITE) {
+			return StoneState.BLACK;
+		} else if (color == StoneState.BLACK) {
+			return StoneState.WHITE;
+		} else {
+			return StoneState.EMPTY;
+		}
 	}
 	
 	public Chain getChain() {
 		return chain;
 	}
 	
-	/**
-	 * Returns the number of liberties of the <code>Stone</code>.
-	 * @return the number of liberties of the <code>Stone</code>
-	 */
-	public int getLiberty() {
-		return this.liberty;
+	public ArrayList<Stone> getNeighbour() {
+		return neighbour;
 	}
 	
-	/**
-	 * Returns the color of the <code>Stone</code>.
-	 * @return the color of the <code>Stone</code>
-	 */
-	public StoneColor getColor() {
-		return this.color;
+	public boolean isEmpty() {
+		return (color == StoneState.EMPTY);
 	}
 	
-	/**
-	 * Returns if the <tt>color</tt> of the <code>Stone</code> is <tt>BLACK</tt> or <tt>WHITE</tt>
-	 * @requires !isEmpty()
-	 * @return <tt>true</tt> if the <code>Stone</code> is <tt>WHITE</tt>,
-	 * <tt>false</tt> is the <code>Stone</code> is <tt>BLACK</tt>
-	 */
-	public boolean getBooleanColor() {
-		if (color == StoneColor.WHITE) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	public int getX() {
-		return x;
-	}
-	
-	public int getY() {
-		return y;
-	}
-	
-	public String toString() {
-		return "This stone is of color " + color + " and has " + liberty + " liberties.";
+	public int liberty() {
+		return chain.calculateLibertyChain();
 	}
 }

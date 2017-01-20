@@ -1,7 +1,6 @@
 package game;
 
-public enum StoneColor {
+public enum StoneState {
 
 	EMPTY, WHITE, BLACK;
-	
 }

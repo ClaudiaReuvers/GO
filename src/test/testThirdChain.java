@@ -4,32 +4,32 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import game.thirdStone;
-import game.thirdChain;
+import game.Stone;
+import game.Chain;
 
 import org.junit.Before;
 
 public class testThirdChain {
 
-	private thirdStone stone1;
-	private thirdStone stone2;
-	private thirdChain chain;
+	private Stone stone1;
+	private Stone stone2;
+	private Chain chain;
 	
 	@Before
 	public void setUp() {
-		stone1 = new thirdStone();
-		stone1.addNeighbour(new thirdStone());
-		stone1.addNeighbour(new thirdStone());
-		stone1.addNeighbour(new thirdStone());
-		stone1.addNeighbour(new thirdStone());
+		stone1 = new Stone();
+		stone1.addNeighbour(new Stone());
+		stone1.addNeighbour(new Stone());
+		stone1.addNeighbour(new Stone());
+		stone1.addNeighbour(new Stone());
 		stone1.addThisToChain();
-		stone2 = new thirdStone();
-		stone2.addNeighbour(new thirdStone());
-		stone2.addNeighbour(new thirdStone());
-		stone2.addNeighbour(new thirdStone());
-		stone2.addNeighbour(new thirdStone());
+		stone2 = new Stone();
+		stone2.addNeighbour(new Stone());
+		stone2.addNeighbour(new Stone());
+		stone2.addNeighbour(new Stone());
+		stone2.addNeighbour(new Stone());
 		stone2.addThisToChain();
-		chain = new thirdChain();
+		chain = new Chain();
 	}
 	
 	@Test
@@ -53,11 +53,11 @@ public class testThirdChain {
 	
 	@Test
 	public void testGetLibertiesIf() {
-		thirdStone stone3 = new thirdStone();
-		stone3.addNeighbour(new thirdStone());
-		stone3.addNeighbour(new thirdStone());
-		stone3.addNeighbour(new thirdStone());
-		thirdStone stone4 = new thirdStone();
+		Stone stone3 = new Stone();
+		stone3.addNeighbour(new Stone());
+		stone3.addNeighbour(new Stone());
+		stone3.addNeighbour(new Stone());
+		Stone stone4 = new Stone();
 		stone4.setColor(true);
 		stone3.addNeighbour(stone4);
 		chain.addStone(stone3);

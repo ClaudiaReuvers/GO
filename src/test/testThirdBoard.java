@@ -1,7 +1,7 @@
 package test;
 
-import game.StoneColor;
-import game.thirdBoard;
+import game.StoneState;
+import game.Board;
 //import game.thirdStone;
 
 import org.junit.Before;
@@ -10,40 +10,41 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 public class testThirdBoard {
 
-	private thirdBoard board;
+	private Board board;
 	
 	@Before
 	public void setUp() {
-		board = new thirdBoard(9);
+		board = new Board(9);
 	}
 	
 	@Test
 	public void testSetUp() {
 		assertEquals(9, board.getDimension());
 		assertEquals(9 * 9, board.getAllFields().length);
-		assertEquals(StoneColor.EMPTY, board.getField(0, 0).getState());
-		assertEquals(StoneColor.EMPTY, board.getField(8, 8).getState());
+		assertEquals(StoneState.EMPTY, board.getField(0, 0).getState());
+		assertEquals(StoneState.EMPTY, board.getField(8, 8).getState());
 		assertEquals(1, board.getField(0, 0).getChain().getChain().size());
 		assertEquals(2, board.getField(0, 0).liberty());
 		assertEquals(3, board.getField(5, 0).liberty());
 		assertEquals(4, board.getField(1, 1).liberty());
-		thirdBoard board19 = new thirdBoard(19);
+		Board board19 = new Board(19);
 		assertEquals(19, board19.getDimension());
-		assertEquals(StoneColor.EMPTY, board19.getField(0, 0).getState());
-		assertEquals(StoneColor.EMPTY, board19.getField(18, 18).getState());
+		assertEquals(StoneState.EMPTY, board19.getField(0, 0).getState());
+		assertEquals(StoneState.EMPTY, board19.getField(18, 18).getState());
 	}
 	
 	@Test
 	public void testAddStoneOne() {
 		board.addStone(0, 0, true);
 		assertFalse(board.getField(0, 0).isEmpty());
-		assertEquals(StoneColor.WHITE, board.getField(0, 0).getState());
+		assertEquals(StoneState.WHITE, board.getField(0, 0).getState());
 		assertEquals(2, board.getField(0, 0).liberty());
 		assertEquals(1, board.getField(0, 0).getChain().getChain().size());
 		board.addStone(3, 3, false);
-		assertEquals(StoneColor.BLACK, board.getField(3, 3).getState());
+		assertEquals(StoneState.BLACK, board.getField(3, 3).getState());
 		assertEquals(4, board.getField(3, 3).liberty());
 	}
 	
@@ -163,9 +164,9 @@ public class testThirdBoard {
 		board.addStone(8, 8, false);
 		board.addStone(2, 2, false);
 		board.clearBoard();
-		assertEquals(StoneColor.EMPTY, board.getField(0, 0).getState());
-		assertEquals(StoneColor.EMPTY, board.getField(8, 8).getState());
-		assertEquals(StoneColor.EMPTY, board.getField(2, 2).getState());
+		assertEquals(StoneState.EMPTY, board.getField(0, 0).getState());
+		assertEquals(StoneState.EMPTY, board.getField(8, 8).getState());
+		assertEquals(StoneState.EMPTY, board.getField(2, 2).getState());
 		assertEquals(1, board.getField(0, 0).getChain().getChain().size());
 	}
 	

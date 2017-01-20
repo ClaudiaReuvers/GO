@@ -1,7 +1,7 @@
 package test;
 
-import game.thirdStone;
-import game.StoneColor;
+import game.Stone;
+import game.StoneState;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,26 +12,26 @@ import static org.junit.Assert.assertFalse;
 
 public class testThirdStone {
 
-	private thirdStone stone1;
-	private thirdStone stone2;
+	private Stone stone1;
+	private Stone stone2;
 	
 	@Before
 	public void setUp() {
-		stone1 = new thirdStone();
-		stone1.addNeighbour(new thirdStone());
-		stone1.addNeighbour(new thirdStone());
-		stone1.addNeighbour(new thirdStone());
-		stone1.addNeighbour(new thirdStone());
-		stone2 = new thirdStone();
-		stone2.addNeighbour(new thirdStone());
-		stone2.addNeighbour(new thirdStone());
-		stone2.addNeighbour(new thirdStone());
-		stone2.addNeighbour(new thirdStone());
+		stone1 = new Stone();
+		stone1.addNeighbour(new Stone());
+		stone1.addNeighbour(new Stone());
+		stone1.addNeighbour(new Stone());
+		stone1.addNeighbour(new Stone());
+		stone2 = new Stone();
+		stone2.addNeighbour(new Stone());
+		stone2.addNeighbour(new Stone());
+		stone2.addNeighbour(new Stone());
+		stone2.addNeighbour(new Stone());
 	}
 	
 	@Test
 	public void testSetUp() {
-		assertEquals(StoneColor.EMPTY, stone1.getState());
+		assertEquals(StoneState.EMPTY, stone1.getState());
 		assertTrue(stone1.isEmpty());
 		assertTrue(stone1.getChain().getChain().isEmpty());
 		assertEquals(4, stone1.getNeighbour().size());
@@ -46,10 +46,10 @@ public class testThirdStone {
 	@Test
 	public void testSetColor() {
 		stone1.setColor(true);
-		assertEquals(StoneColor.WHITE, stone1.getState());
+		assertEquals(StoneState.WHITE, stone1.getState());
 		assertFalse(stone1.isEmpty());
 		stone1.setColor(false);
-		assertEquals(StoneColor.BLACK, stone1.getState());
+		assertEquals(StoneState.BLACK, stone1.getState());
 		assertFalse(stone1.isEmpty());
 	}
 }
