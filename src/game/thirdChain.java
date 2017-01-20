@@ -33,12 +33,8 @@ public class thirdChain {
 		ArrayList<thirdStone> empty = new ArrayList<>();
 		for (thirdStone stones : chain) {
 			for (thirdStone emptyStones : stones.getNeighbour()) {
-				System.out.println(emptyStones.getState() + "is empty: " + emptyStones.isEmpty());
 				if (emptyStones.isEmpty() && !empty.contains(emptyStones)) {
-					System.out.println("Add stone: " + emptyStones.getState());
 					empty.add(emptyStones);
-					System.out.println(empty);
-					
 				}
 			}
 		}

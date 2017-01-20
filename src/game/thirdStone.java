@@ -16,6 +16,12 @@ public class thirdStone {
 		this.neighbour = new ArrayList<>();
 	}
 	
+	public void setEmpty() {
+		this.color = StoneColor.EMPTY;
+		this.chain = new thirdChain();
+		addThisToChain();
+	}
+	
 	//Methods
 	public void addThisToChain() {
 		chain.addStone(this);
