@@ -40,6 +40,12 @@ public class thirdStone {
 		}
 	}
 	
+	public void remove() {
+		for (thirdStone stones : chain.getChain()) {
+			stones.setEmpty();
+		}
+	}
+	
 	public void setColor(boolean white) {
 		if (white) {
 			this.color = StoneColor.WHITE;
@@ -56,6 +62,16 @@ public class thirdStone {
 	//Queries
 	public StoneColor getState() {
 		return color;
+	}
+	
+	public StoneColor otherColor() {
+		if (color == StoneColor.WHITE) {
+			return StoneColor.BLACK;
+		} else if (color == StoneColor.BLACK) {
+			return StoneColor.WHITE;
+		} else {
+			return StoneColor.EMPTY;
+		}
 	}
 	
 	public thirdChain getChain() {

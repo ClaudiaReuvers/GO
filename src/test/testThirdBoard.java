@@ -177,7 +177,7 @@ public class testThirdBoard {
 		board.addStone(0, 1, true);
 		board.addStone(2, 1, true);
 		assertFalse(board.getField(1, 1).isEmpty());
-		assertEquals(8, board.getField(1, 1).liberty());
+		assertEquals(6, board.getField(1, 1).liberty());
 	}
 	
 	@Test
@@ -188,7 +188,7 @@ public class testThirdBoard {
 		board.addStone(0, 1, true);
 		board.addStone(2, 1, true);
 		assertTrue(board.getField(1, 1).isEmpty());
-		assertEquals(9, board.getField(1, 2).liberty());
+		assertEquals(4, board.getField(1, 2).liberty());
 	}
 	
 	//TODO: add other tests: e.g. test for removal of chains; test for order of removal

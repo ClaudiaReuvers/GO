@@ -44,13 +44,16 @@ public class thirdBoard {
 		for (thirdStone surrounding : stone.getNeighbour()) {
 			if (surrounding.getState() == stone.getState()) {
 				stone.join(surrounding);
+				
+			}
+			if (surrounding.getState() == stone.otherColor()) {
 				if (surrounding.liberty() == 0) {
-					//TODO: add remove method
+					surrounding.remove();
 				}
 			}
 		}
 		if (stone.liberty() == 0) {
-			//TODO: add remove method
+			stone.remove();
 		}
 //		GUI.addStone(x, y, white);
 	}
@@ -108,15 +111,13 @@ public class thirdBoard {
 		return fields;
 	}
 	
-	
-	public static void main(String[] args) {
-		thirdBoard board = new thirdBoard(9);
-		board.addStone(1, 0, true);
-		board.addStone(1, 1, true);
-		board.addStone(2, 1, true);
-		board.addStone(2, 3, true);
-		board.addStone(3, 3, true);
-		board.addStone(2, 2, true);
-		
-	}
+//	public static void main(String[] args) {
+//		thirdBoard board = new thirdBoard(9);
+//		board.addStone(1, 1, true);
+//		board.addStone(1, 2, true);
+//		board.addStone(1, 0, true);
+//		board.addStone(0, 1, true);
+//		board.addStone(2, 1, true);
+//		
+//	}
 }
