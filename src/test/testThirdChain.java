@@ -22,11 +22,13 @@ public class testThirdChain {
 		stone1.addNeighbour(new thirdStone());
 		stone1.addNeighbour(new thirdStone());
 		stone1.addNeighbour(new thirdStone());
+		stone1.addThisToChain();
 		stone2 = new thirdStone();
 		stone2.addNeighbour(new thirdStone());
 		stone2.addNeighbour(new thirdStone());
 		stone2.addNeighbour(new thirdStone());
 		stone2.addNeighbour(new thirdStone());
+		stone2.addThisToChain();
 		chain = new thirdChain();
 	}
 	
@@ -62,6 +64,14 @@ public class testThirdChain {
 		assertEquals(3, chain.calculateLibertyChain());
 		chain.addStone(stone2);
 		assertEquals(7, chain.calculateLibertyChain());
+	}
+	
+	@Test
+	public void testJoin() {
+		stone1.join(stone2);
+		assertEquals(stone1.getChain(), stone2.getChain());
+		System.out.println(stone1.getChain().getChain().size());
+		assertEquals(8, stone1.getChain().calculateLibertyChain());
 	}
 
 }

@@ -38,6 +38,11 @@ public class thirdStone {
 		}
 	}
 	
+	public void join(thirdStone stone) {
+		chain.join(stone.getChain());
+		stone.addChain(chain);
+	}
+	
 	//Queries
 	public StoneColor getState() {
 		return color;
