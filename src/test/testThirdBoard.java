@@ -2,7 +2,7 @@ package test;
 
 import game.StoneColor;
 import game.thirdBoard;
-import game.thirdStone;
+//import game.thirdStone;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -191,5 +191,75 @@ public class testThirdBoard {
 		assertEquals(4, board.getField(1, 2).liberty());
 	}
 	
-	//TODO: add other tests: e.g. test for removal of chains; test for order of removal
+	@Test
+	public void testRemoveChain() {
+		board.addStone(1, 2, true);
+		board.addStone(1, 3, true);
+		board.addStone(2, 1, true);
+		board.addStone(2, 2, false);
+		board.addStone(2, 3, false);
+		board.addStone(3, 2, true);
+		board.addStone(3, 3, true);
+		board.addStone(2, 4, true);
+		assertTrue(board.getField(2, 2).isEmpty());
+		assertTrue(board.getField(2, 3).isEmpty());
+	}
+	
+	@Test
+	public void testRemoveOrder() {
+		board.addStone(1, 1, true);
+		board.addStone(1, 2, true);
+		board.addStone(1, 3, true);
+		board.addStone(1, 4, true);
+		board.addStone(1, 5, true);
+		board.addStone(2, 1, true);
+		board.addStone(2, 5, true);
+		board.addStone(3, 1, true);
+		board.addStone(3, 5, true);
+		board.addStone(4, 1, true);
+		board.addStone(4, 5, true);
+		board.addStone(5, 1, true);
+		board.addStone(5, 2, true);
+		board.addStone(5, 3, true);
+		board.addStone(5, 4, true);
+		board.addStone(2, 2, false);
+		board.addStone(2, 3, false);
+		board.addStone(2, 4, false);
+		board.addStone(3, 2, false);
+		board.addStone(3, 4, false);
+		board.addStone(4, 2, false);
+		board.addStone(4, 3, false);
+		board.addStone(4, 4, false);
+		board.addStone(3, 3, true);
+		assertTrue(board.getField(2, 2).isEmpty());
+	}
+	
+	@Test
+	public void testRemoveOrder2() {
+		board.addStone(1, 1, true);
+		board.addStone(1, 2, true);
+		board.addStone(1, 3, true);
+		board.addStone(1, 4, true);
+		board.addStone(1, 5, true);
+		board.addStone(2, 1, true);
+		board.addStone(2, 5, true);
+		board.addStone(3, 1, true);
+		board.addStone(3, 5, true);
+		board.addStone(4, 1, true);
+		board.addStone(4, 5, true);
+		board.addStone(5, 1, true);
+		board.addStone(5, 2, true);
+		board.addStone(5, 3, true);
+		board.addStone(5, 4, true);
+		board.addStone(3, 3, true);
+		board.addStone(2, 2, false);
+		board.addStone(2, 3, false);
+		board.addStone(2, 4, false);
+		board.addStone(3, 2, false);
+		board.addStone(3, 4, false);
+		board.addStone(4, 2, false);
+		board.addStone(4, 3, false);
+		board.addStone(4, 4, false);
+		assertTrue(board.getField(3, 3).isEmpty());
+	}
 }
