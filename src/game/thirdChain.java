@@ -20,12 +20,15 @@ public class thirdChain {
 	}
 	
 	public void join(thirdChain otherChain) {
-		System.out.print("Join to stones: " + otherChain.getChain().get(0).getState());
+//		System.out.print("Join to stones: " + otherChain.getChain().get(0).getState());
 		for (thirdStone stones : otherChain.getChain()) {
-			System.out.println("Join " + stones.getState());
+//			System.out.println("Join " + stones.getState());
 			if (!chain.contains(stones)) {
 				chain.add(stones);
 			}
+		}
+		for (thirdStone stones : chain) {
+			stones.addChain(this);
 		}
 	}
 	

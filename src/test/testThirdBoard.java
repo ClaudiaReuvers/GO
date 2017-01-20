@@ -138,7 +138,7 @@ public class testThirdBoard {
 		assertEquals(board.getField(1, 0).getChain(), board.getField(2, 4).getChain());
 		assertEquals(board.getField(1, 0).getChain(), board.getField(3, 4).getChain());
 		assertEquals(board.getField(1, 0).getChain(), board.getField(2, 2).getChain());
-		assertEquals(11, board.getField(1, 0).liberty());
+		assertEquals(12, board.getField(1, 0).liberty());
 	}
 	
 	@Test
@@ -154,7 +154,7 @@ public class testThirdBoard {
 		assertEquals(board.getField(1, 0).getChain(), board.getField(2, 3).getChain());
 		assertEquals(board.getField(1, 0).getChain(), board.getField(3, 3).getChain());
 		assertEquals(board.getField(1, 0).getChain(), board.getField(2, 2).getChain());
-		assertEquals(10, board.getField(1, 0).getChain());
+		assertEquals(10, board.getField(1, 0).liberty());
 	}
 	
 	@Test

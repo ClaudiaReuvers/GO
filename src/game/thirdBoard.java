@@ -1,11 +1,13 @@
 package game;
 
+//import GUI.*;
 //TODO: also insert GUI?
 
 public class thirdBoard {
 
 	private int DIM;
 	private thirdStone[] fields;
+//	private GoGUIIntegrator GUI;
 	
 	public thirdBoard(int boardSize) {
 		DIM = boardSize;
@@ -32,6 +34,8 @@ public class thirdBoard {
 				stone.addThisToChain();
 			}
 		}
+//		GUI = new GoGUIIntegrator(true, true, DIM);
+//		GUI.startGUI();
 	}
 	
 	public void addStone(int x, int y, boolean white) {
@@ -48,6 +52,7 @@ public class thirdBoard {
 		if (stone.liberty() == 0) {
 			//TODO: add remove method
 		}
+//		GUI.addStone(x, y, white);
 	}
 	
 	public thirdStone getField(int x, int y) {
@@ -58,17 +63,25 @@ public class thirdBoard {
 		return (x + DIM * y);
 	}
 	
-	private boolean isOnCorner(int x, int y) {
-		if (x == 0 || x == DIM - 1) {
-			if (y == 0 || y == DIM - 1) {
-				return true;
+//	private boolean isOnCorner(int x, int y) {
+//		if (x == 0 || x == DIM - 1) {
+//			if (y == 0 || y == DIM - 1) {
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
+	
+//	private boolean isOnBorder(int x, int y) {
+//		return (x == 0 || x == DIM - 1 || y == 0 || y == DIM - 1);
+//	}
+	
+	public void clearBoard() {
+		for (int x = 0; x < DIM; x++) {
+			for (int y = 0; y < DIM; y++) {
+				this.getField(x, y).setEmpty();
 			}
 		}
-		return false;
-	}
-	
-	private boolean isOnBorder(int x, int y) {
-		return (x == 0 || x == DIM - 1 || y == 0 || y == DIM - 1);
 	}
 	
 	private boolean isOnTopBorder(int x, int y) {
@@ -95,4 +108,15 @@ public class thirdBoard {
 		return fields;
 	}
 	
+	
+	public static void main(String[] args) {
+		thirdBoard board = new thirdBoard(9);
+		board.addStone(1, 0, true);
+		board.addStone(1, 1, true);
+		board.addStone(2, 1, true);
+		board.addStone(2, 3, true);
+		board.addStone(3, 3, true);
+		board.addStone(2, 2, true);
+		
+	}
 }
