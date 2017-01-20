@@ -63,4 +63,8 @@ public class thirdStone {
 	public boolean isEmpty() {
 		return (color == StoneColor.EMPTY);
 	}
+	
+	public int liberty() {
+		return chain.calculateLibertyChain();
+	}
 }
