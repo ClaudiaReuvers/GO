@@ -7,6 +7,7 @@ public class thirdStone {
 	private StoneColor color;
 	private thirdChain chain;
 	private ArrayList<thirdStone> neighbour;
+	private int max = 4;
 	
 	//Constructor
 	public thirdStone() {
@@ -25,6 +26,9 @@ public class thirdStone {
 	}
 	
 	public void addNeighbour(thirdStone stone) {
+		if (neighbour.size() == max) {
+			System.out.println("Max nr. of neighbours is exceeded");
+		}
 		if (!neighbour.contains(stone)) {
 			neighbour.add(stone);
 		}
